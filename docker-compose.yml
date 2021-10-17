@@ -1,0 +1,21 @@
+services:
+  database:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=system4231
+      - POSTGRES_DB=movies
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database_volume:/bitnami/postgresql
+    container_name: postgres_db
+  notebook:
+    image: jupyter/minimal-notebook        
+    ports: 
+      - 8888:8888
+    volumes:
+      - ./movie_stats.ipynb:/home/jovyan/work/movie_stats.ipynb 
+    container_name: jupyter-notebook
